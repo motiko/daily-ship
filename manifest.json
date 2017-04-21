@@ -3,6 +3,7 @@
   "name": "git push Every Day",
   "manifest_version": 2,
   "description": "Track your coding habbits",
+  "author": "Moti Korets",
   "browser_action": {
     "default_title": "Hack code every day",
     "default_popup": "popup.html"
@@ -16,6 +17,6 @@
     "scripts": ["background.js"],
     "persistent": false
   },
-  "permissions": [ "storage" ],
-  "content_security_policy": "default-src 'self'; script-src 'self';"
+  "permissions": [ "storage", "https://github.com/*", "identity" ],
+  "content_security_policy": "default-src 'self'; script-src 'self' https://ssl.google-analytics.com;"
 }
