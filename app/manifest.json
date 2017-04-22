@@ -17,5 +17,5 @@
     "persistent": false
   },
   "permissions": [ "storage", "https://github.com/*", "https://api.github.com/*", "identity", "tabs" ],
-  "content_security_policy": "default-src 'self'; script-src 'self' https://ssl.google-analytics.com; connect-src https://github.com https://api.github.com;"
+  "content_security_policy": "default-src 'self'; script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; connect-src https://github.com https://api.github.com;"
 }
