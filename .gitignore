@@ -1,3 +1,6 @@
 .DS_Store
 img/GitHub-Mark
 img/GitHub-Logos
+dist/
+node_modules/
+tmp/
