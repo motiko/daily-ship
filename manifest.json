@@ -5,8 +5,7 @@
   "description": "Track your coding habbits",
   "author": "Moti Korets",
   "browser_action": {
-    "default_title": "Hack code every day",
-    "default_popup": "popup.html"
+    "default_title": "Hack code every day"
   },
   "icons": {
     "16": "img/128.png",
@@ -17,6 +16,6 @@
     "scripts": ["background.js"],
     "persistent": false
   },
-  "permissions": [ "storage", "https://github.com/*", "identity" ],
-  "content_security_policy": "default-src 'self'; script-src 'self' https://ssl.google-analytics.com;"
+  "permissions": [ "storage", "https://github.com/*", "https://api.github.com/*", "identity", "tabs" ],
+  "content_security_policy": "default-src 'self'; script-src 'self' https://ssl.google-analytics.com; connect-src https://github.com https://api.github.com;"
 }
