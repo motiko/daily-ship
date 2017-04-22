@@ -1,26 +1,27 @@
 const $i = document.getElementById.bind(document)
 
-function* requestPages(user_login,token){
-  let page = 0
-  const N = ''
-  while(page < 10){
+function* requestEvents(user_login,token){
+  for(let page=1; page <= 10; page++){
     yield fetch(`https://api.github.com/users/${user_login}/events
                       ?page=${page}&access_token=${token}`.replace(/\s/g,''))
-      .then(r => r.json())
-    page++
+                      .then(r => r.json()).then(response => {
+                            return Promise.resolve({response,page})
+                      })
   }
   return Promise.resolve('Finished')
 }
 
 function* searchCommits(user_login,token){
-  let page = 0
   let headers = new Headers({
     'Accept': ' application/vnd.github.cloak-preview'
   })
-  while(page < 10){
-    yield fetch(`https://api.github.com/users/${user_data.login}/events?page=${i}&access_token=${ghat}`,
-       {headers}).then(r => r.json())
-    page++
+  for(let page=1; page <= 10; page++){
+    yield fetch(`https://api.github.com/search/commits
+                ?q=author:${user_login}&page=${page}
+                &access_token=${token}`.replace(/\s/g,''),
+                {headers}).then(r => r.json()).then(response => {
+                  return Promise.resolve({response,page})
+                })
   }
   return Promise.resolve('Finished')
 }
@@ -32,16 +33,32 @@ chrome.storage.sync.get('ghat', ({ghat}) => {
   fetch(`https://api.github.com/user?access_token=${ghat}`).then(r => r.json())
       .then(user_data => {
         gh_user_data = user_data
-        for( pagePromise of requestPages(user_data.login, ghat)){
-            pagePromise.then(events => {
-              console.log(`${'-'.repeat(40)}/events/public?page={'-'.repeat(40)}`)
-              console.log(events)
-              console.log('-'.repeat(80))
-            })
-        }
-
+        let pageGenerator = requestEvents(user_data.login, ghat)
+        callConsecutively(pageGenerator, function(result){
+          console.log(`${'-'.repeat(40)}public events ${result.page}${'-'.repeat(40)}`)
+          console.log(result.response)
+          console.log('-'.repeat(80))
+        })
+        let commitsGenerator = searchCommits(user_data.login, ghat)
+        callConsecutively(commitsGenerator, function(result){
+          console.log(`${'-'.repeat(40)}commits ${result.page}${'-'.repeat(40)}`)
+          console.log(result.response)
+          console.log('-'.repeat(80))
+        })
       })
 })
+
+function callConsecutively(gen, cb){
+  let iteration = gen.next()
+  if(!iteration.done){
+    iteration.value.then(function(result){
+      cb(result)
+      callConsecutively(gen,cb)
+    })
+  }else{
+
+  }
+}
 
 $i('connect_to_github').addEventListener('click', connect_to_github)
 
