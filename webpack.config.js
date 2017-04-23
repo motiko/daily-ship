@@ -26,7 +26,7 @@ module.exports = {
            }
     ]
   },
-  // devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
@@ -41,6 +41,7 @@ module.exports = {
               to: "img"},
             { from: 'app/manifest.json',
               to: "manifest.json"}
-        ])
+        ]),
+    //new webpack.HotModuleReplacementPlugin()
   ]
 }
