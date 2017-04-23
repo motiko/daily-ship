@@ -40,9 +40,12 @@ function connect_to_github(){
         client_secret: '486a74168e7446c357c70cf607cf3806de9c7653'}
   let github_endpoint = 'https://github.com/login/oauth/authorize'
   let github_oauth_url = `${github_endpoint}?client_id=${github_oauth.client_id}&redirect_uri=${redirect_uri}`
-
   chrome.identity.launchWebAuthFlow({url: github_oauth_url , interactive: true},
     function(redirect_url) {
+      if(!redirect_url){
+        console.error('oAuth error occured')
+        return
+      }
       let code = /code\=(\w+)/.exec(redirect_url)[1]
       let headers = new Headers({
               "Content-Type": "application/json",

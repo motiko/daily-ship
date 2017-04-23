@@ -21,7 +21,8 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: 'dist'
+    path: 'dist',
+    sourceMapFilename: '[name].map'
   },
 
   module: {
@@ -38,7 +39,7 @@ module.exports = {
   resolve: {
     alias: alias
   },
-  devtool: 'cheap-module-eval-source-map',
+  // devtool: 'cheap-module-eval-source-map',
   plugins: [
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
