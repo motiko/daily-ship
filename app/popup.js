@@ -1,4 +1,5 @@
 import "./css/popup.css";
+import github_oauth from "./secrets.dev"
 
 const $i = document.getElementById.bind(document)
 
@@ -16,6 +17,7 @@ function* requestEvents(user_login, publicity, token){
 chrome.storage.sync.get('ghat', ({ghat}) => {
   if(!ghat) return
   console.log(ghat)
+  console.log('!'.repeat(2))
   $i('connect_github_container').style.display = 'none'
   fetch(`https://api.github.com/user?access_token=${ghat}`).then(r => r.json())
       .then(userData => {
@@ -36,8 +38,7 @@ $i('connect_to_github').addEventListener('click', connect_to_github)
 
 function connect_to_github(){
   let redirect_uri =  `https://${chrome.runtime.id}.chromiumapp.org/github_cb`
-  let github_oauth = {client_id: 'c2defec5a641151422a3',
-        client_secret: '486a74168e7446c357c70cf607cf3806de9c7653'}
+
   let github_endpoint = 'https://github.com/login/oauth/authorize'
   let github_oauth_url = `${github_endpoint}?client_id=${github_oauth.client_id}&redirect_uri=${redirect_uri}`
   chrome.identity.launchWebAuthFlow({url: github_oauth_url , interactive: true},
