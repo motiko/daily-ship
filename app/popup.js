@@ -1,5 +1,7 @@
 import "./css/popup.css";
 import github_oauth from "./secrets.dev"
+//import "../node_modules/materialize-css/dist/css/materialize.css"
+require("materialize-css/dist/css/materialize.css")
 
 const $i = document.getElementById.bind(document)
 
@@ -18,7 +20,7 @@ chrome.storage.sync.get('ghat', ({ghat}) => {
   if(!ghat) return
   console.log(ghat)
   console.log('!'.repeat(2))
-  $i('connect_github_container').style.display = 'none'
+  //$i('connect_github_container').style.display = 'none'
   fetch(`https://api.github.com/user?access_token=${ghat}`).then(r => r.json())
       .then(userData => {
         Promise.all([...requestEvents(userData.login,'/public',ghat)]).then((allData) =>{

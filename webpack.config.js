@@ -1,8 +1,10 @@
 // webpack.config.js
 const webpack = require('webpack'),
+      path = require('path'),
       HtmlWebpackPlugin = require("html-webpack-plugin"),
-      CopyWebpackPlugin = require('copy-webpack-plugin')
-
+      CopyWebpackPlugin = require('copy-webpack-plugin'),
+      CSSTreeShakePlugin = require('css-tree-shake-plugin')
+      ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -19,13 +21,28 @@ module.exports = {
     rules: [
               {
                test: /\.css$/,
-               use: ['css-loader']
-           },{
-                test: /\.(jpg|png|gif)$/,
-                use: 'file-loader'
-           }
-    ]
+               use: ['style-loader','css-loader'],
+              // //  use: ExtractTextPlugin.extract({
+              // //   use: 'css-loader'
+              //  })
+               },{
+                    test: /\.(png|jpg|gif|svg|eot)$/,
+                    loader: 'url-loader'
+               },
+               {
+                // Match woff2 in addition to patterns like .woff?v=1.1.1.
+                test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader',
+                options: {
+                  limit: 500,
+                  mimetype: 'application/font-woff',
+                  name: './fonts/[name].[ext]',
+                },
+              }
+    ],
+
   },
+
   devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
@@ -42,6 +59,8 @@ module.exports = {
             { from: 'app/manifest.json',
               to: "manifest.json"}
         ]),
+     new CSSTreeShakePlugin({showInfo: true, remove: true}),
+     new ExtractTextPlugin('styles.css')
     //new webpack.HotModuleReplacementPlugin()
   ]
 }
