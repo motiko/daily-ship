@@ -1,3 +1,9 @@
 .DS_Store
 img/GitHub-Mark
 img/GitHub-Logos
+dist/
+node_modules/
+tmp/
+app.crx
+app.pem
+app/secrets.*.js
