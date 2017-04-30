@@ -2,27 +2,31 @@
 <head>
   <meta charset="utf-8">
   <title>Apex Debugger Options</title>
-  <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+  <!-- <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/> -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
   <link type="text/css" rel="stylesheet" href="css/popup.css" />
   <link rel="icon" type="image/png" href="img/128.png">
 </head>
 <body>
+
 <div class="container">
-  <div class="row" id="github_data">
+  <div class="row hidden" id="connecting">
+    <div class="loader">Loading...</div>
+    <h4>
+      Connecting..
+    </h4>
+    <p>Github oAuth page should open shortly</p>
   </div>
-  <div id="connect_github_container">
-    <div class="row valign-wrapper">
-      <h4 class="center-align">
-        To start using this plugin
-      </h4>
-    </div>
-    <div class="row">
-      <p class="center-align">
-        <a class="waves-effect waves-light btn-large pulse" id="connect_to_github">Connect to GitHub</a>
-      </p>
-    </div>
+  <div class="row" id="connect_to_gh">
+        <h4>
+          To start using this plugin
+        </h4>
+        <a class="btn-large" id="connect_to_github">Connect to GitHub</a>
+  </div>
+
   </div>
 </div>
+<script type="text/javascript" src="secrets.dev.js"></script>
 <script type="text/javascript" src="popup.js"></script>
 </body>
 </html>
