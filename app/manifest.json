@@ -17,6 +17,6 @@
     "persistent": false
   },
   "permissions": [ "storage", "https://github.com/*", "https://api.github.com/*", "identity", "tabs" ],
-  "content_security_policy": "default-src 'self'; script-src 'self' https://ssl.google-analytics.com; connect-src https://github.com https://api.github.com;",
+  "content_security_policy": "default-src 'self'; script-src 'self' https://ssl.google-analytics.com; connect-src https://github.com https://api.github.com; img-src https://*.githubusercontent.com",
   "key":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtpufetX55zhrhF5v8X22ZagcvjfNED82i1j7dREiy7AuhXxeM8c2tcVK6Xs+2Bq1R64GqVyM6Pg5OtxQbF45qFi5XGQBa0u8U+ECnri1YNmCwfmUn0XuczBVCdWy3DV6yC5cFq5YuusECSOQUW/50UGWsCvt1TsnAMEQxXzYflJrJhd/siIoXH54jzdHcCMUm0Y19orXAUYAoOYmuqeTrrOK2qKY/ISU9r+M5DJQgiO8QR/LXJL/8Wff66jKFjZJPprtz/vvFQvr+8RIuOzLhipTL7TIXpuLHjGhwROZ6mKzFZ7QOmh2233xu8otpYO0K6XspmlrFffd98UE6lDiBwIDAQAB"
 }

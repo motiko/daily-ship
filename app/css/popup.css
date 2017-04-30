@@ -25,6 +25,10 @@ p{
   line-height: 110%;
 }
 
+p#error_msg{
+  color: indianred
+}
+
 .hidden{
   display:none;
 }
@@ -43,6 +47,11 @@ p{
   margin: auto;
 }
 
+img#avatar{
+  left: 70px;
+  position: absolute;
+  margin: 30px 40px;
+}
 
 h4 {
     font-size: 1.9rem;

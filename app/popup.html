@@ -17,11 +17,28 @@
     </h4>
     <p>Github oAuth page should open shortly</p>
   </div>
+  <div class="row hidden" id="fetching_data">
+    <div class="loader">Fetching data...</div>
+    <h4>
+      Fetching data..
+    </h4>
+    <p>You will see your data from github here soon</p>
+  </div>
+  <div class="row hidden" id="github_data">
+    <img id="avatar"/>
+    <svg id="contributions" width="160" height="140" xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <rect x="10" y="10" width="40" height="40" stroke="green" fill="green"
+       fill-opacity="0.5" stroke-opacity="0.8"/>
+       <rect x="60" y="10" width="40" height="40" stroke="green" fill="green"
+        fill-opacity="0.5" stroke-opacity="0.8"/>
+    </svg>
+  </div>
   <div class="row" id="connect_to_gh">
         <h4>
           To start using this plugin
         </h4>
-        <a class="btn-large" id="connect_to_github">Connect to GitHub</a>
+        <a class="btn-large" id="connect_to_github_btn">Connect to GitHub</a>
+        <p id="error_msg" class="hidden"></p>
   </div>
 
   </div>
