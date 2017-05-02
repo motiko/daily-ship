@@ -7,3 +7,4 @@ tmp/
 app.crx
 app.pem
 app/secrets.*.js
+app_dist/
