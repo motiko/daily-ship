@@ -1,14 +1,27 @@
-// function setBadge(){
-//   chrome.storage.sync.get('chainLength',function({chainLength}){
-//     console.log(chainLength)
-//     if(chainLength) chrome.browserAction.setBadgeText({text:`${chainLength}`})
-//   })
-// }
-// setBadge()
-setInterval(fetchDataFromGithub, 360000)
-fetchDataFromGithub()
-
 const MILLISECONDS_IN_DAY = 86400000
+const MILLISECONDS_IN_MINUTE = 60000
+let fetchTimerInterval;
+
+chrome.storage.sync.get('refreshRate',({refreshRate = 5})=> {
+  fetchTimerInterval = setInterval(fetchDataFromGithub, refreshRate * MILLISECONDS_IN_MINUTE)
+  fetchDataFromGithub()
+})
+
+chrome.storage.onChanged.addListener(function({refreshRate,chainLength}, area){
+  if(area != "sync") return
+  if(refreshRate){
+    clearInterval(fetchTimerInterval)
+    fetchTimerInterval = setInterval(fetchDataFromGithub, refreshRate.newValue * MILLISECONDS_IN_MINUTE)
+  }
+  if(chainLength){
+    console.dir(chainLength)
+    if(chainLength.newValue){
+      chrome.browserAction.setBadgeText({text:`${chainLength.newValue}`})
+    }else{
+      chrome.browserAction.setBadgeText({text:''})
+    }
+  }
+})
 
 function* requestEvents(user_login, publicity, token){
   for(let page=1; page <= 10; page++){
@@ -31,12 +44,10 @@ function fetchDataFromGithub(){
           chrome.storage.sync.set({'ghUserData': userData})
           return Promise.all([...requestEvents(userData.login,'/public',ghat)]).then((allData) =>{
             let pushDates = getUnborkenChain(getPushDates(allData))
-            let chainLength = pushDates.length
-            chrome.storage.sync.set({'chainLength': chainLength})
-            if(chainLength) chrome.browserAction.setBadgeText({text:`${chainLength}`})
+            chrome.storage.sync.set({'chainLength': pushDates.length})
           })
         }).catch((error)=>{
-          if(error.message === "BadToken"){
+          if(error === "BadToken"){
             chrome.storage.sync.remove('ghat', ()=>{})
           }
           console.error(error)
@@ -77,9 +88,11 @@ chrome.runtime.onMessage.addListener( (request) => {
     case "connect_to_github":
       connectToGithub()
       break
+    case "fetch_data_from_github":
+      fetchDataFromGithub()
+      break
   }
 })
-
 
 function connectToGithub(){
   let redirect_uri =  `https://${chrome.runtime.id}.chromiumapp.org/github_cb`

@@ -1,12 +1,15 @@
 {
-  "version": "0.0.0",
+  "version": "0.0.1",
   "name": "Daily Ship",
   "manifest_version": 2,
   "description": "Track your coding habbits",
   "author": "Moti Korets",
   "browser_action": {
-    "default_title": "Hack code every day",
+    "default_title": "git push every day",
     "default_popup": "popup.html"
+  },
+  "options_ui": {
+      "page": "options.html"
   },
   "icons": {
     "16": "img/128.png",
@@ -14,7 +17,7 @@
     "128": "img/128.png"
   },
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["background.js","secrets.dev.js"],
     "persistent": false
   },
   "permissions": [ "storage", "https://github.com/*", "https://api.github.com/*", "identity", "tabs" ],
