@@ -2,23 +2,21 @@
 <head>
   <meta charset="utf-8">
   <title>Apex Debugger Options</title>
-  <!-- <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/> -->
-  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
   <link type="text/css" rel="stylesheet" href="css/popup.css" />
   <link rel="icon" type="image/png" href="img/128.png">
 </head>
 <body>
 
 <div class="container">
-  <div class="row hidden" id="connecting">
+  <div class="row hidden center-content" id="connecting">
     <div class="loader">Loading...</div>
     <h4>
       Connecting..
     </h4>
     <p>Github oAuth page should open shortly</p>
   </div>
-  <div class="row hidden" id="fetching_data">
-    <div class="loader">Fetching data...</div>
+  <div class="row hidden center-content" id="fetching_data">
+    <div class="loader center-content">Fetching data...</div>
     <h4>
       Fetching data..
     </h4>
@@ -27,13 +25,11 @@
   <div class="row hidden" id="github_data">
     <img id="avatar"/>
     <svg id="contributions" width="160" height="140" xmlns="http://www.w3.org/2000/svg" version="1.1">
-      <rect x="10" y="10" width="40" height="40" stroke="green" fill="green"
-       fill-opacity="0.5" stroke-opacity="0.8"/>
-       <rect x="60" y="10" width="40" height="40" stroke="green" fill="green"
-        fill-opacity="0.5" stroke-opacity="0.8"/>
+      <rect x="2" y="2" width="10" height="10" stroke="green" fill="green"
+       fill-opacity="0.5" stroke-opacity="0.8" id="contrib-rect-proto" class="hidden contrib-rect"/>
     </svg>
   </div>
-  <div class="row" id="connect_to_gh">
+  <div class="row center-content" id="connect_to_gh">
         <h4>
           To start using this plugin
         </h4>
@@ -43,6 +39,7 @@
 
   </div>
 </div>
+<script type="text/javascript" src="date_fns.js"></script>
 <script type="text/javascript" src="secrets.dev.js"></script>
 <script type="text/javascript" src="popup.js"></script>
 </body>

@@ -10,6 +10,8 @@ html {
     font-family: "Roboto", sans-serif;
     font-weight: normal;
     color: rgba(0,0,0,0.87);
+    height: 380px;
+    width: 380px;
 }
 
 body{
@@ -17,7 +19,9 @@ body{
   font-family: "Roboto", sans-serif;
   font-weight: normal;
   color: rgba(0,0,0,0.67);
-  background: #f7f5f0
+  background: #f7f5f0;
+  height: 380px;
+  width: 380px;
 }
 
 p{
@@ -26,6 +30,7 @@ p{
 }
 
 p#error_msg{
+  margin-top: 11px;
   color: indianred
 }
 
@@ -34,24 +39,34 @@ p#error_msg{
 }
 
 .container{
-    height: 489px;
+
     width: 300px;
-    height: 100%;
-    width: 100%;
+    margin: auto;
+    /*height: 100%;
+    width: 100%;*/
 }
 
 .row{
   width: 300px;
-  height: 100px;
-  text-align: center;
   margin: auto;
+  margin-top: 25px;
+
 }
 
-img#avatar{
-  left: 70px;
-  position: absolute;
-  margin: 30px 40px;
+.center-content{
+  text-align: center;
 }
+
+
+img#avatar{
+  margin: 5px 5px 75px 5px;
+  width: 64px;
+  height: 64px;
+}
+
+/*svg#contributions{
+  margin-top: 5px;
+}*/
 
 h4 {
     font-size: 1.9rem;
