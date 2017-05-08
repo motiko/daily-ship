@@ -19,7 +19,7 @@
   },
   "background": {
     "scripts": ["background.js","secrets.dev.js"],
-    "persistent": false
+    "persistent": true
   },
   "permissions": [ "storage", "https://github.com/*", "https://api.github.com/*", "identity", "tabs" ],
   "content_security_policy": "default-src 'self'; script-src 'self' https://ssl.google-analytics.com; connect-src https://github.com https://api.github.com; img-src https://*.githubusercontent.com",

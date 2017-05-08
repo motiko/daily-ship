@@ -61,11 +61,18 @@ function getPushDates(allData){
   return pushEvents.map(pe => pe.created_at)
 }
 
+function pad(num){
+  if(num < 10)
+    return `0${num}`
+  return `${num}`
+}
+
 function getUnborkenChain(pushDates){
   let today = new Date()
   today.setHours(0,0,0,0)
-  pushDates = pushDates.sort((d1,d2) => new Date(d2) - new Date(d1))
-  pushDates = pushDates.map((d) => d.split('T')[0])
+  pushDates = pushDates.map((d) => new Date(d))
+  pushDates = pushDates.sort((d1,d2) => d2 - d1)
+  pushDates = pushDates.map((d) => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`)
   pushDates = pushDates.filter((val, i, arr) => arr.indexOf(val) === i)
   let chain = pushDates.filter(unbrokenChainFrom(today))
   if(chain.length == 0){
