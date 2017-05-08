@@ -3,25 +3,34 @@ const MILLISECONDS_IN_MINUTE = 60000
 let fetchTimerInterval;
 
 chrome.storage.sync.get('refreshRate',({refreshRate = 5})=> {
-  fetchTimerInterval = setInterval(fetchDataFromGithub, refreshRate * MILLISECONDS_IN_MINUTE)
+  fetchTimerInterval = setInterval(fetchDataFromGithub, refreshRateInMs(refreshRate))
   fetchDataFromGithub()
 })
 
 chrome.storage.onChanged.addListener(function({refreshRate,chainLength}, area){
   if(area != "sync") return
   if(refreshRate){
-    clearInterval(fetchTimerInterval)
-    fetchTimerInterval = setInterval(fetchDataFromGithub, refreshRate.newValue * MILLISECONDS_IN_MINUTE)
+    if(fetchTimerInterval) clearInterval(fetchTimerInterval)
+    fetchTimerInterval = setInterval(fetchDataFromGithub, refreshRateInMs(refreshRate.newValue) )
   }
   if(chainLength){
-    console.dir(chainLength)
-    if(chainLength.newValue){
-      chrome.browserAction.setBadgeText({text:`${chainLength.newValue}`})
-    }else{
-      chrome.browserAction.setBadgeText({text:''})
-    }
+    setBadge(chainLength.newValue)
   }
 })
+
+function refreshRateInMs(rr){
+  let sanitized = parseInt(rr, 10)
+  if(isNaN(newRefreshRate) || newRefreshRate < 0.5) sanitized = 1
+  return sanitized * MILLISECONDS_IN_MINUTE
+}
+
+function setBadge(newValue){
+  if(newValue){
+    chrome.browserAction.setBadgeText({text:`${newValue}`})
+  }else{
+    chrome.browserAction.setBadgeText({text:''})
+  }
+}
 
 function* requestEvents(user_login, publicity, token){
   for(let page=1; page <= 10; page++){
@@ -35,6 +44,7 @@ function* requestEvents(user_login, publicity, token){
 }
 
 function fetchDataFromGithub(){
+  console.info('Fetching data')
   chrome.storage.sync.get('ghat', ({ghat}) => {
     if(!ghat) return
     fetch(`https://api.github.com/user?access_token=${ghat}`).then(user_response => {
@@ -44,7 +54,8 @@ function fetchDataFromGithub(){
           chrome.storage.sync.set({'ghUserData': userData})
           return Promise.all([...requestEvents(userData.login,'/public',ghat)]).then((allData) =>{
             let pushDates = getUnborkenChain(getPushDates(allData))
-            chrome.storage.sync.set({'chainLength': pushDates.length})
+            chrome.storage.sync.set({'chainLength': pushDates.length},)
+            setBadge(pushDates.length)
           })
         }).catch((error)=>{
           if(error === "BadToken"){

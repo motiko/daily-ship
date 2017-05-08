@@ -1,6 +1,6 @@
 const $i = document.getElementById.bind(document)
 
-chrome.storage.sync.get('refreshRate', ({refreshRate}) => {
+chrome.storage.sync.get('refreshRate', ({refreshRate = 1}) => {
   $i('refresh_rate').value = refreshRate
   $i('save_btn').classList.remove('disabled')
   $i('save_btn').addEventListener('click',save)
