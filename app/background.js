@@ -20,7 +20,7 @@ chrome.storage.onChanged.addListener(function({refreshRate,chainLength}, area){
 
 function refreshRateInMs(rr){
   let sanitized = parseInt(rr, 10)
-  if(isNaN(newRefreshRate) || newRefreshRate < 0.5) sanitized = 1
+  if(isNaN(sanitized) || sanitized < 0.5) sanitized = 1
   return sanitized * MILLISECONDS_IN_MINUTE
 }
 
