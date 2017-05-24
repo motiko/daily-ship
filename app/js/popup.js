@@ -23,29 +23,30 @@ chrome.storage.onChanged.addListener(function({ghat,ghUserData,chainLength},area
     showRow('fetching_data')
     chrome.runtime.sendMessage(chrome.runtime.id,{command:'fetch_data_from_github'})
   }
-  if(ghUserData || chainLength){
+  if(ghUserData || chainLength != undefined){
     window.location.reload()
   }
 })
 
 window.onload = function(){
   showRow('fetching_data')
-  chrome.storage.sync.get(['ghUserData', 'ghat', 'chainLength'], (items) =>{
-    if(items.ghat){
-      if(items.ghUserData){
-        $i('avatar').src= items.ghUserData.avatar_url
+  chrome.storage.sync.get(['ghUserData', 'ghat', 'chainLength'],
+    ({ghat, ghUserData, chainLength}) =>{
+      if(ghat){
+        if(ghUserData){
+          $i('avatar').src= ghUserData.avatar_url
+        }
+        if(chainLength != undefined){
+          showRow('github_data')
+          new Array(chainLength).fill(0).forEach(drawRectFunc())
+        }
+        if(chainLength === undefined || !ghUserData){
+          showRow('fetching_data')
+          chrome.runtime.sendMessage(chrome.runtime.id,{command:'fetch_data_from_github'})
+        }
+      }else{
+        showRow('connect_to_gh')
       }
-      if(items.chainLength){
-        showRow('github_data')
-        new Array(items.chainLength).fill(0).forEach(drawRectFunc())
-      }
-      if(!items.chainLength || !items.ghUserData){
-        showRow('fetching_data')
-        chrome.runtime.sendMessage(chrome.runtime.id,{command:'fetch_data_from_github'})
-      }
-    }else{
-      showRow('connect_to_gh')
-    }
   })
 }
 

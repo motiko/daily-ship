@@ -25,7 +25,7 @@ function refreshRateInMs(rr){
 }
 
 function setBadge(newValue){
-  if(newValue){
+  if(newValue != undefined){
     chrome.browserAction.setBadgeText({text:`${newValue}`})
   }else{
     chrome.browserAction.setBadgeText({text:''})
@@ -53,6 +53,7 @@ function fetchDataFromGithub(){
     }).then(userData => {
           chrome.storage.sync.set({'ghUserData': userData})
           return Promise.all([...requestEvents(userData.login,'/public',ghat)]).then((allData) =>{
+
             let pushDates = getUnborkenChain(getPushDates(allData))
             chrome.storage.sync.set({'chainLength': pushDates.length},)
             setBadge(pushDates.length)
