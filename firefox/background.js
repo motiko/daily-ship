@@ -25,6 +25,7 @@ function refreshRateInMs(rr){
 }
 
 function setBadge(newValue){
+  browser.browserAction.setBadgeBackgroundColor({color:'#707070'})
   if(newValue != undefined){
     browser.browserAction.setBadgeText({text:`${newValue}`})
   }else{
