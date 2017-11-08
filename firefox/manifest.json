@@ -1,0 +1,33 @@
+{
+  "version": "0.0.1",
+  "name": "GitHub Contribution Tracker",
+  "short_name": "GitHub Tracker",
+  "manifest_version": 2,
+  "description": "Track your coding habbits",
+  "author": "Moti Korets",
+  "browser_action": {
+    "default_title": "git push every day",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "19": "img/19.png",
+      "38": "img/38.png"
+    }
+  },
+  "options_ui": {
+      "page": "options.html"
+  },
+  "icons": {
+    "48": "img/48.png"
+  },
+  "background": {
+    "scripts": ["background.js","secrets.ff.js"],
+    "persistent": true
+  },
+  "permissions": [ "storage", "https://github.com/*", "https://api.github.com/*", "identity", "tabs" ],
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; connect-src https://github.com https://api.github.com; img-src https://*.githubusercontent.com; object-src 'self'",
+  "applications": {
+    "gecko": {
+      "id": "daily-ship@moti.co"
+    }
+  }
+}

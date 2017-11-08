@@ -6,5 +6,6 @@ node_modules/
 tmp/
 app.crx
 app.pem
-app/secrets.*.js
+secrets.*.js
 app_dist/
+web-ext-artifacts
