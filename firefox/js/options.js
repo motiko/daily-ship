@@ -6,8 +6,9 @@ browser.storage.sync.get('refreshRate', ({refreshRate = 1}) => {
   $i('save_btn').addEventListener('click',save)
 })
 
-browser.storage.sync.get('ghUserData',({ghUserData: userData}) => {
-  $i('connected_as').innerHTML = `Connected to GitHub as <a href="${userData.html_url}">${userData.name}</a>`
+browser.storage.sync.get('ghUserData').then( ({ghUserData: userData}) => {
+  $i('gh_user').href = userData.html_url
+  $i('gh_user').innerText = userData.name
   $i('disconnect_btn').classList.remove('hidden')
   $i('disconnect_btn').addEventListener('click',disconnect)
 })

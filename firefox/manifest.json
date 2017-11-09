@@ -24,7 +24,7 @@
     "persistent": true
   },
   "permissions": [ "storage", "https://github.com/*", "https://api.github.com/*", "identity", "tabs" ],
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; connect-src https://github.com https://api.github.com; img-src https://*.githubusercontent.com; object-src 'self'",
+  "content_security_policy": " object-src 'self'; script-src 'self'; connect-src https://github.com https://api.github.com; img-src https://*.githubusercontent.com",
   "applications": {
     "gecko": {
       "id": "daily-ship@moti.co"
